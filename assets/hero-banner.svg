@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
+<title id="title">ThoraxLens — Explainable AI for Chest X-ray Analysis</title>
+<desc id="desc">A custom abstract medical imaging and neural network banner for the ThoraxLens research prototype.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#071426"/><stop offset=".58" stop-color="#102946"/><stop offset="1" stop-color="#123d52"/></linearGradient>
+  <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#57e3d1"/><stop offset="1" stop-color="#71a7ff"/></linearGradient>
+  <radialGradient id="glow"><stop offset="0" stop-color="#49d9d0" stop-opacity=".25"/><stop offset="1" stop-color="#49d9d0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="520" rx="26" fill="url(#bg)"/>
+<circle cx="1260" cy="265" r="300" fill="url(#glow)"/>
+<g opacity=".18" stroke="#8ccbd8" stroke-width="1">
+  <path d="M0 88H1600M0 176H1600M0 264H1600M0 352H1600M0 440H1600"/>
+  <path d="M160 0V520M320 0V520M480 0V520M640 0V520M800 0V520M960 0V520M1120 0V520M1280 0V520M1440 0V520"/>
+</g>
+<g transform="translate(1015 75)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M195 28V132" stroke="#72b9d2" stroke-width="12"/>
+  <path d="M195 120C170 134 153 150 145 170" stroke="#72b9d2" stroke-width="9"/>
+  <path d="M195 120C220 134 237 150 245 170" stroke="#72b9d2" stroke-width="9"/>
+  <path d="M180 150C129 119 68 142 57 209C49 260 74 322 120 342C154 356 177 319 181 267Z" fill="#163f5c" stroke="#6fe6dc" stroke-width="4"/>
+  <path d="M210 150C261 119 322 142 333 209C341 260 316 322 270 342C236 356 213 319 209 267Z" fill="#163f5c" stroke="#6fe6dc" stroke-width="4"/>
+  <path d="M195 136V321M195 172L140 212M195 172L250 212M140 212L108 270M250 212L282 270" stroke="#80baf5" stroke-width="3" opacity=".85"/>
+  <path d="M119 199L157 235L137 289M271 199L233 235L253 289" stroke="#80baf5" stroke-width="2" opacity=".6"/>
+  <g fill="#64f0d7" stroke="#082237" stroke-width="3">
+    <circle cx="195" cy="136" r="8"/><circle cx="140" cy="212" r="8"/><circle cx="250" cy="212" r="8"/><circle cx="108" cy="270" r="8"/><circle cx="282" cy="270" r="8"/>
+    <circle cx="157" cy="235" r="7"/><circle cx="233" cy="235" r="7"/>
+  </g>
+  <g stroke="url(#accent)" stroke-width="2" opacity=".75">
+    <path d="M45 95L108 145L143 170"/><path d="M343 95L282 145L247 170"/><path d="M17 250L82 260L108 270"/><path d="M371 250L308 260L282 270"/>
+  </g>
+  <g fill="#72dcd6" opacity=".9"><circle cx="45" cy="95" r="5"/><circle cx="343" cy="95" r="5"/><circle cx="17" cy="250" r="5"/><circle cx="371" cy="250" r="5"/></g>
+</g>
+<g font-family="Inter,Segoe UI,Arial,sans-serif">
+  <text x="100" y="130" fill="#7fe5dc" font-size="23" font-weight="700" letter-spacing="5">MEDICAL IMAGING × DEEP LEARNING</text>
+  <text x="96" y="228" fill="#ffffff" font-size="78" font-weight="800" letter-spacing="-2">ThoraxLens</text>
+  <rect x="100" y="252" width="150" height="6" rx="3" fill="url(#accent)"/>
+  <text x="100" y="307" fill="#d5e5f3" font-size="30" font-weight="500">Explainable multi-label chest X-ray analysis</text>
+  <text x="100" y="356" fill="#a9c4db" font-size="23">DenseNet-121 • NIH ChestX-ray14 • PyTorch • Streamlit</text>
+  <g transform="translate(100 402)">
+    <rect width="164" height="42" rx="21" fill="#163d52" stroke="#57e3d1"/>
+    <text x="82" y="27" fill="#a4fff0" font-size="16" font-weight="700" text-anchor="middle">14 FINDINGS</text>
+    <rect x="180" width="220" height="42" rx="21" fill="#163d52" stroke="#71a7ff"/>
+    <text x="290" y="27" fill="#d5e5ff" font-size="16" font-weight="700" text-anchor="middle">PATIENT-DISJOINT TEST</text>
+    <rect x="416" width="194" height="42" rx="21" fill="#392e23" stroke="#f0b96d"/>
+    <text x="513" y="27" fill="#ffe0ae" font-size="16" font-weight="700" text-anchor="middle">RESEARCH ONLY</text>
+  </g>
+</g>
+</svg>
