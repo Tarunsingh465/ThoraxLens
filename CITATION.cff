@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use ThoraxLens in academic work, please cite this research prototype and the associated repository."
+title: "ThoraxLens: Explainable AI for Multi-Label Chest X-Ray Analysis"
+type: software
+authors:
+  - family-names: Singh
+    given-names: Tarun
+repository-code: "https://github.com/Tarunsingh465/ThoraxLens"
+abstract: "A research prototype for multi-label chest X-ray classification with DenseNet-121, patient-disjoint evaluation, validation-selected thresholds, and exploratory saliency visualization."
+keywords:
+  - chest X-ray
+  - DenseNet-121
+  - multi-label classification
+  - explainable AI
+  - medical imaging
+license: MIT
