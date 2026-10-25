@@ -83,11 +83,12 @@ The corrected label normalizer maps <code>Pleural_Thickening</code> to **Pleural
 
 Expected local dataset layout:
 
-<pre><code>Datasets/
-├── Data_Entry_2017_v2020.csv
-├── train_val_list.txt
-├── test_list.txt
-└── images/                     # extracted PNG images</code></pre>
+<pre><code>data/
+└── nih/
+    ├── Data_Entry_2017_v2020.csv
+    ├── train_val_list.txt
+    ├── test_list.txt
+    └── images/                 # extracted PNG images</code></pre>
 
 See <code>data/DATASET_DOWNLOAD.md</code> for dataset setup notes. Local paths can differ from machine to machine.
 
@@ -223,7 +224,7 @@ Thresholds for each label were chosen by maximizing F1 on the **validation split
 | Pneumonia | 0.8209 | 0.0441 | 0.2414 | 0.0746 |
 | Pneumothorax | 0.8554 | 0.3042 | 0.4533 | 0.3641 |
 
-Detailed experiment outputs are intended to live in <code>reports/</code>, including corrected per-finding test metrics, thresholded test metrics, training history, and validation threshold JSON/CSV files.
+Detailed experiment outputs live in <code>reports/</code>, including corrected per-finding test metrics, thresholded test metrics, training history, and validation threshold JSON/CSV files. The full results narrative is in [docs/FINAL_RESULTS.md](docs/FINAL_RESULTS.md).
 
 ## Dashboard and explainability
 
@@ -257,37 +258,29 @@ For GPU acceleration, install a CUDA-enabled PyTorch/Torchvision build compatibl
 ## Repository map
 
 <pre><code>ThoraxLens/
+├── README.md
 ├── app.py
 ├── audit_splits.py
 ├── validate_dataset.py
 ├── requirements.txt
-├── assets/
-│   ├── hero-banner.svg
-│   ├── project-pipeline.svg
-│   ├── data-split.svg
-│   ├── test-auroc-chart.svg
-│   └── interpretability-workflow.svg
+├── CITATION.cff
+├── MODEL_CARD.md
+├── NOTICE.md
+├── assets/                         # README visuals and diagrams
 ├── data/
-│   └── DATASET_DOWNLOAD.md
+│   └── DATASET_DOWNLOAD.md         # instructions only; dataset is not committed
 ├── docs/
 │   ├── ARCHITECTURE.md
-│   └── EVALUATION_PROTOCOL.md
-├── MODEL_CARD.md
-├── CITATION.cff
-├── models/                         # local checkpoints are not committed
-├── reports/                        # experiment CSV/JSON outputs
-├── src/
-│   ├── data.py
-│   ├── labels.py
-│   ├── model.py
-│   ├── train.py
-│   ├── evaluate.py
-│   ├── evaluate_thresholds.py
-│   ├── calibrate_thresholds.py
-│   └── inference.py
-└── tests/</code></pre>
+│   ├── EVALUATION_PROTOCOL.md
+│   ├── FINAL_RESULTS.md
+│   └── PROJECT_OVERVIEW.md
+├── reports/                        # tracked experiment CSV/JSON outputs
+├── src/                            # data, model, training, evaluation, inference
+└── tests/                          # automated unit tests</code></pre>
 
-The source and report folders are intended to be added from the actual <code>chest_xray_project_v3</code> working tree. The published README and diagrams document that project, but a complete code upload is a separate step.
+For project background, see [Project overview](docs/PROJECT_OVERVIEW.md). For the full metric tables, see [Final results](docs/FINAL_RESULTS.md). Architecture and evaluation details are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/EVALUATION_PROTOCOL.md](docs/EVALUATION_PROTOCOL.md). Model limitations and attribution are documented in [MODEL_CARD.md](MODEL_CARD.md) and [NOTICE.md](NOTICE.md).
+
+Trained checkpoints and the NIH images are intentionally excluded from GitHub because of their size and the dataset's access terms. Place the local dataset under <code>data/nih/</code> as described in <code>data/DATASET_DOWNLOAD.md</code>.
 
 ## Limitations
 

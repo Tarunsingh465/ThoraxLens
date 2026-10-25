@@ -115,7 +115,7 @@ An example image labelled `No Finding` received some high scores in the demo. Th
 The following files were present in the project's `reports` directory:
 
 - `patient_disjoint_test_metrics.csv`
-- `patient_disjoint_test_metrics_fixed.csv`
+- `patient_disjoint_test_metrics.csv`
 - `patient_disjoint_test_threshold_metrics.csv`
 - `training_history.csv`
 - `validation_per_label_epoch_1.csv`
@@ -123,7 +123,7 @@ The following files were present in the project's `reports` directory:
 - `validation_thresholds.json`
 - `validation_threshold_metrics.csv`
 
-Use `patient_disjoint_test_threshold_metrics.csv` for the threshold-specific test precision/recall/F1 report and `patient_disjoint_test_metrics_fixed.csv` for the corrected per-finding ranking metrics.
+Use `patient_disjoint_test_threshold_metrics.csv` for the threshold-specific test precision/recall/F1 report and `patient_disjoint_test_metrics.csv` for the corrected per-finding ranking metrics.
 
 ## 8. Limitations and next improvements
 
