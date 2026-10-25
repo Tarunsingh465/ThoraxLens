@@ -1,7 +1,6 @@
 # Notices and visual credits
 
-ThoraxLens is a separate PyTorch research implementation inspired by the workflow and explanatory structure of [Laurent Veyssier's Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning repository](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning).
-
+ThoraxLens is a separate PyTorch research implementation inspired by the similar research based projects.
 ## Reference figures embedded in README
 
 The DenseNet architecture figures and dense-connection animation referenced by the README are loaded from the original project’s public repository using their original raw GitHub URLs. They remain hosted by the upstream author, are identified as reference illustrations in the README, and are not ThoraxLens results:
