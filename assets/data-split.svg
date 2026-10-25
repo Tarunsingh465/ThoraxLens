@@ -1,29 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="500" viewBox="0 0 1280 500" role="img" aria-labelledby="title desc">
-<title id="title">ThoraxLens dataset split</title><desc id="desc">112120 image files: 86524 in official train and validation list, internally split into 73023 train and 13501 validation, and 25596 official held-out test images.</desc>
-<defs><linearGradient id="tr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0f9a8e"/><stop offset="1" stop-color="#34b9a8"/></linearGradient><linearGradient id="va" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4261d7"/><stop offset="1" stop-color="#7389f0"/></linearGradient><linearGradient id="te" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#db8a39"/><stop offset="1" stop-color="#f2b45f"/></linearGradient></defs>
-<rect width="1280" height="500" rx="22" fill="#fff" stroke="#d7e3ed" stroke-width="2"/>
-<text x="58" y="62" font-family="Segoe UI,Arial,sans-serif" font-size="32" font-weight="700" fill="#112f48">Dataset split and patient separation</text>
-<text x="58" y="99" font-family="Segoe UI,Arial,sans-serif" font-size="18" fill="#617a8f">NIH ChestX-ray metadata audit • 112,120 image files checked</text>
-<rect x="58" y="145" width="1164" height="74" rx="12" fill="#eaf1f7"/>
-<rect x="58" y="145" width="757" height="74" rx="12" fill="url(#tr)"/>
-<rect x="815" y="145" width="407" height="74" rx="12" fill="url(#te)"/>
-<g font-family="Segoe UI,Arial,sans-serif" font-weight="700" fill="#fff">
-<text x="82" y="176" font-size="21">Official train/validation pool</text><text x="82" y="202" font-size="18">86,524 images (77.2%)</text>
-<text x="1012" y="176" font-size="20" text-anchor="middle">Held-out test</text><text x="1012" y="202" font-size="18" text-anchor="middle">25,596 images</text>
-</g>
-<path d="M436 219V270H350V292M436 270H710V292" stroke="#8aa3b6" stroke-width="3" fill="none" stroke-linecap="round"/>
-<g>
-<rect x="120" y="292" width="460" height="102" rx="16" fill="#e2f5f1" stroke="#a1ddd3" stroke-width="2"/>
-<rect x="640" y="292" width="340" height="102" rx="16" fill="#e9edff" stroke="#b7c3fa" stroke-width="2"/>
-<text x="350" y="329" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#126d68">Internal training partition</text>
-<text x="350" y="363" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="800" fill="#126d68">73,023</text>
-<text x="810" y="329" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#3b54b5">Validation partition</text>
-<text x="810" y="363" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="800" fill="#3b54b5">13,501</text>
-</g>
-<path d="M1005 292H1138V394" stroke="#c3a172" stroke-width="3" fill="none" stroke-linecap="round"/>
-<text x="1138" y="330" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#956321" font-weight="700">No list overlap</text>
-<text x="1138" y="358" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#956321">test remains</text>
-<text x="1138" y="378" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#956321">unseen</text>
-<rect x="58" y="424" width="1164" height="44" rx="12" fill="#f3f7fa"/>
-<text x="640" y="452" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#536d83">Split audit reported zero patient overlap between the internal train/validation group and held-out test group.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="680" viewBox="0 0 1280 680" role="img" aria-labelledby="title desc">
+  <title id="title">ThoraxLens dataset split and patient separation</title>
+  <desc id="desc">The NIH ChestX-ray dataset audit checked 112,120 images. The official train and validation pool contains 86,524 images, internally split into 73,023 training images and 13,501 validation images. The held-out test contains 25,596 images. The audit reported zero filename-list overlap and zero patient overlap.</desc>
+  <defs>
+    <linearGradient id="trainPool" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#078b83"/><stop offset="100%" stop-color="#16aaa0"/></linearGradient>
+    <linearGradient id="testPool" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#df7c23"/><stop offset="100%" stop-color="#f1a340"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,5 L0,10 Z" fill="#8197ad"/></marker>
+    <style>
+      .font { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+      .title { font-size: 36px; font-weight: 750; fill: #102a43; letter-spacing: -0.6px; }
+      .subtitle { font-size: 18px; fill: #5f7488; }
+      .sourceTitle { font-size: 22px; font-weight: 700; fill: #ffffff; }
+      .sourceNumber { font-size: 25px; font-weight: 750; fill: #ffffff; }
+      .cardLabel { font-size: 20px; font-weight: 700; }
+      .count { font-size: 34px; font-weight: 800; }
+      .small { font-size: 16px; fill: #5f7488; }
+      .auditLabel { font-size: 18px; font-weight: 650; fill: #744018; }
+      .auditValue { font-size: 24px; font-weight: 800; fill: #c45f17; }
+      .footer { font-size: 18px; fill: #173b5c; }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="1278" height="678" rx="24" fill="#ffffff" stroke="#dce6ee" stroke-width="2"/>
+  <text class="font title" x="640" y="58" text-anchor="middle">Dataset split &amp; patient separation</text>
+  <text class="font subtitle" x="640" y="91" text-anchor="middle">NIH ChestX-ray metadata audit · 112,120 image files checked</text>
+  <rect x="54" y="123" width="734" height="112" rx="16" fill="url(#trainPool)"/>
+  <text class="font sourceTitle" x="421" y="164" text-anchor="middle">Official train/validation pool</text>
+  <text class="font sourceNumber" x="421" y="201" text-anchor="middle">86,524 images · 77.2%</text>
+  <rect x="808" y="123" width="418" height="112" rx="16" fill="url(#testPool)"/>
+  <text class="font sourceTitle" x="1017" y="164" text-anchor="middle">Held-out test</text>
+  <text class="font sourceNumber" x="1017" y="201" text-anchor="middle">25,596 images · 22.8%</text>
+  <path d="M421 235 V281 H236 V319" fill="none" stroke="#8197ad" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <path d="M421 281 H606 V319" fill="none" stroke="#8197ad" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <path d="M1017 235 V319" fill="none" stroke="#c58e57" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <rect x="54" y="332" width="364" height="150" rx="16" fill="#e5f6f2" stroke="#91d9ce" stroke-width="2"/>
+  <circle cx="86" cy="366" r="8" fill="#07978d"/>
+  <text class="font cardLabel" x="105" y="373" fill="#126d68">Internal training</text>
+  <text class="font count" x="236" y="426" text-anchor="middle" fill="#126d68">73,023</text>
+  <text class="font small" x="236" y="456" text-anchor="middle">images</text>
+  <rect x="432" y="332" width="364" height="150" rx="16" fill="#edf0ff" stroke="#b3c0ff" stroke-width="2"/>
+  <circle cx="464" cy="366" r="8" fill="#526ce5"/>
+  <text class="font cardLabel" x="483" y="373" fill="#354fc0">Internal validation</text>
+  <text class="font count" x="614" y="426" text-anchor="middle" fill="#354fc0">13,501</text>
+  <text class="font small" x="614" y="456" text-anchor="middle">images</text>
+  <rect x="824" y="332" width="402" height="150" rx="16" fill="#fff6ec" stroke="#f4c493" stroke-width="2"/>
+  <text class="font cardLabel" x="1025" y="368" text-anchor="middle" fill="#744018">Separation audit</text>
+  <text class="font auditLabel" x="878" y="410">Filename-list overlap</text>
+  <text class="font auditValue" x="1167" y="410" text-anchor="end">0</text>
+  <line x1="878" y1="423" x2="1170" y2="423" stroke="#efd4b7" stroke-width="1.5"/>
+  <text class="font auditLabel" x="878" y="454">Patient overlap</text>
+  <text class="font auditValue" x="1167" y="454" text-anchor="end">0</text>
+  <rect x="54" y="524" width="1172" height="102" rx="16" fill="#eef4fa"/>
+  <circle cx="91" cy="575" r="17" fill="#d2e2f3"/>
+  <path d="M83 575 l6 6 11 -13" fill="none" stroke="#215b87" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="font footer" x="123" y="565">The split audit found <tspan font-weight="800">zero patient overlap</tspan> between the internal train/validation group</text>
+  <text class="font footer" x="123" y="593">and the held-out test group, keeping test patients separate from model development.</text>
+  <text class="font" x="640" y="653" text-anchor="middle" font-size="14" fill="#8b9eae">Counts reflect the audited local dataset lists and split report.</text>
 </svg>
