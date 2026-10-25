@@ -1,15 +1,13 @@
 <div align="center">
 
-# ThoraxLens
+![ThoraxLens — Explainable AI for Chest X-ray Analysis](assets/hero-banner.svg)
 
-### Explainable AI for Multi-Label Chest X-Ray Analysis
-
-**DenseNet-121 · NIH ChestX-ray14 · PyTorch · Streamlit · Saliency Visualization**
+**DenseNet-121 · NIH ChestX-ray14 · PyTorch · Streamlit · Grad-CAM / Saliency Inspection**
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-DenseNet--121-EE4C2C?logo=pytorch&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Demo-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
-![Research Prototype](https://img.shields.io/badge/Status-Research%20Prototype-orange)
+![Status](https://img.shields.io/badge/Status-Research%20Prototype-orange)
 
 *An end-to-end research implementation for 14-label chest radiograph classification, patient-aware evaluation, validation-selected thresholds, and visual model inspection.*
 
@@ -18,38 +16,58 @@
 > [!WARNING]
 > **Research and education only — not a medical device.** ThoraxLens has not been clinically validated. Its scores, threshold flags, and saliency maps are not diagnoses and must not be used to make clinical decisions.
 
-![Chest X-ray project header from the upstream reference repository](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/xray-header-image.png)
+## Table of contents
+
+- [Project overview](#project-overview)
+- [Highlights](#highlights)
+- [Workflow](#workflow)
+- [Dataset and split audit](#dataset-and-split-audit)
+- [DenseNet-121 architecture](#densenet-121-architecture)
+- [Training setup](#training-setup)
+- [Results](#results)
+- [Threshold calibration](#threshold-calibration)
+- [Dashboard and explainability](#dashboard-and-explainability)
+- [Installation and running](#installation-and-running)
+- [Repository map](#repository-map)
+- [Limitations](#limitations)
+- [Acknowledgements and references](#acknowledgements-and-references)
 
 ---
 
 ## Project overview
 
-ThoraxLens predicts scores for **14 findings** from a frontal chest X-ray. It is a multi-label task: more than one finding can receive a score for the same image.
+ThoraxLens predicts scores for **14 findings** from a frontal chest X-ray. This is a **multi-label classification** task: more than one finding can receive a score for the same image.
 
-The project is inspired by [Laurent Veyssier's Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning repository](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning), which explores DenseNet-121, class-imbalance handling, ROC/AUC evaluation, and Grad-CAM. ThoraxLens is a separate PyTorch implementation that adds patient-split auditing, saved per-label evaluation reports, validation-derived decision thresholds, and a Streamlit research dashboard.
+The project is inspired by [Laurent Veyssier's Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning repository](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning), which explains DenseNet-121, class-imbalance handling, ROC/AUC evaluation, and Grad-CAM. ThoraxLens is a separate PyTorch implementation with patient-split auditing, saved per-label evaluation reports, validation-derived decision thresholds, and a Streamlit research dashboard.
 
-**This is not an exact reproduction** of the upstream TensorFlow/Keras notebook, training protocol, or its bundled model weights. Metrics below come from the ThoraxLens experiments.
+**This is not an exact reproduction** of the upstream TensorFlow/Keras notebook, training protocol, or its bundled model weights. Results below are from the ThoraxLens experiments described in this project.
 
-## Key features
+## Highlights
 
-- DenseNet-121 multi-label classifier with 14 outputs.
-- Dataset file and patient split auditing.
-- Label alias handling for the NIH metadata label `Pleural_Thickening`.
+- DenseNet-121 multi-label classifier with 14 output scores.
+- Dataset filename, list membership, and patient split auditing.
+- Corrected label alias handling for the NIH metadata label <code>Pleural_Thickening</code>.
 - Held-out test evaluation using AUROC and average precision.
-- Per-label thresholds selected on validation data, then held fixed for test evaluation.
-- Streamlit dashboard for image upload, score inspection, threshold flags, and saliency visualization.
-- CSV and JSON reports for reproducible inspection of the reported experiments.
+- Per-label decision thresholds selected on validation data, then kept fixed for test evaluation.
+- Streamlit dashboard for X-ray upload, score inspection, threshold flags, and saliency visualization.
+- CSV/JSON experiment outputs and documentation of the evaluation protocol.
+
+## Workflow
+
+![ThoraxLens end-to-end workflow](assets/project-pipeline.svg)
+
+The workflow separates training, validation-based threshold selection, and held-out test evaluation. Thresholds are selected with validation data; they are not tuned against the test set.
 
 ## Dataset and split audit
 
-ThoraxLens uses the NIH ChestX-ray dataset. Obtain the dataset from the [NIH ChestX-ray portal](https://nihcc.app.box.com/v/Chestxray-NIHCC) and review the current access terms. The dataset images and original archives are **not included** in this repository.
+ThoraxLens uses the NIH ChestX-ray dataset. Obtain it from the [NIH ChestX-ray portal](https://nihcc.app.box.com/v/Chestxray-NIHCC) and follow its access terms. Dataset images and the original archives are **not included** in this repository.
 
 The local dataset audit recorded:
 
 | Audit item | Result |
 |---|---:|
 | Extracted PNG images | 112,120 |
-| Rows in `Data_Entry_2017_v2020.csv` | 112,120 |
+| Rows in <code>Data_Entry_2017_v2020.csv</code> | 112,120 |
 | Image/metadata filename mismatches | 0 |
 | Official train/validation list | 86,524 images |
 | Official test list | 25,596 images |
@@ -59,27 +77,72 @@ The local dataset audit recorded:
 | Internal validation partition | 13,501 images |
 | Held-out test images evaluated | 25,596 |
 
-The corrected label normalizer maps `Pleural_Thickening` to the display name **Pleural Thickening**. The corrected held-out test report contains 1,143 positive test cases for this finding.
+![ThoraxLens dataset split audit diagram](assets/data-split.svg)
+
+The corrected label normalizer maps <code>Pleural_Thickening</code> to **Pleural Thickening**. The corrected held-out test report contains 1,143 positive test cases for this finding.
 
 Expected local dataset layout:
 
-```text
-Datasets/
+<pre><code>Datasets/
 ├── Data_Entry_2017_v2020.csv
 ├── train_val_list.txt
 ├── test_list.txt
-└── images/                     # extracted PNG images
-```
+└── images/                     # extracted PNG images</code></pre>
 
-See `data/DATASET_DOWNLOAD.md` for dataset setup notes. Local dataset paths can differ from machine to machine.
+See <code>data/DATASET_DOWNLOAD.md</code> for dataset setup notes. Local paths can differ from machine to machine.
 
-## Model architecture
+## DenseNet-121 architecture
 
-ThoraxLens uses DenseNet-121, a convolutional neural network with densely connected blocks. Each layer in a dense block receives feature maps from earlier layers, encouraging feature reuse and providing short paths for gradient flow. The classification head is replaced with **14 outputs**.
+DenseNet is built around densely connected blocks: each layer receives feature maps from earlier layers and passes its output to later layers. This promotes feature reuse and creates short paths for gradient propagation. ThoraxLens uses a DenseNet-121 backbone with a **14-output classification head**.
 
-![DenseNet architecture from the upstream reference repository](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/densenet.png)
+### Architecture overview
 
-For the original author's explanation and architecture visuals, see the [upstream README](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning#densenet-architecture). Those images remain hosted by and credited to the upstream project.
+![DenseNet architecture diagram from the reference project](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/densenet.png)
+
+### Dense connections
+
+The animation below comes from the upstream reference project and illustrates its explanation of dense connections. It is **reference material, not a ThoraxLens training visualization**.
+
+![Dense connections animation from the original reference repository](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/dense_connection.gif)
+
+### Dense blocks, dense layers, and transition layers
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**Dense block**
+
+![Dense block reference diagram](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/dense_block.png)
+
+</td>
+<td width="50%" valign="top">
+
+**Dense layer**
+
+![Dense layer reference diagram](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/dense_layer.png)
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+**Feature-map growth**
+
+![Feature maps reference diagram](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/feature_maps.png)
+
+</td>
+<td width="50%" valign="top">
+
+**Transition layer / concatenation**
+
+![Concatenation reference diagram](https://raw.githubusercontent.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning/main/asset/concat.png)
+
+</td>
+</tr>
+</table>
+
+These architecture figures are embedded from the original repository and remain hosted by its author. See the [reference README's DenseNet section](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning#densenet-architecture) for their detailed explanation. They are not original ThoraxLens figures.
 
 ## Training setup
 
@@ -93,28 +156,32 @@ The final corrected fine-tuning run used:
 | Epochs completed | 2 |
 | Mixed precision | Enabled (AMP) |
 | GPU | NVIDIA GeForce RTX 2050, 4 GB VRAM |
-| PyTorch / Torchvision | `2.14.1+cu130` / `0.29.1+cu130` |
-| Initialization | Earlier project checkpoint `densenet121_xray_best.pth` |
-| Final best checkpoint (local) | `models/densenet121_xray_label_fixed_best.pth` |
+| PyTorch / Torchvision | 2.14.1+cu130 / 0.29.1+cu130 |
+| Initialization | Earlier project checkpoint <code>densenet121_xray_best.pth</code> |
+| Final best checkpoint (local) | <code>models/densenet121_xray_label_fixed_best.pth</code> |
 
-The final corrected run fine-tuned from an earlier project checkpoint; it was not trained from scratch. The run completed two epochs.
+The corrected run fine-tuned from an earlier project checkpoint; it was **not trained from scratch**.
 
 | Epoch | Training loss | Validation loss | Validation macro AUROC | Validation macro AP |
 |---:|---:|---:|---:|---:|
 | 1 | 0.6699 | 0.7687 | 0.7742 | 0.1444 |
 | 2 | 0.6388 | 0.6837 | 0.7838 | 0.1618 |
 
-## Held-out test results
+## Results
 
-Evaluation used **25,596 held-out test images**. AUROC and average precision measure ranking quality; they do not establish clinical utility or guarantee performance at a particular decision threshold.
+Evaluation used **25,596 held-out test images**. AUROC and average precision measure ranking quality; they do not by themselves establish clinical utility or guarantee performance at a decision threshold.
 
-| Metric | Result |
+| Test metric | Result |
 |---|---:|
 | Macro AUROC | **0.7620** |
 | Macro average precision | **0.2002** |
 | Macro precision at validation-selected thresholds | 0.1969 |
 | Macro recall at validation-selected thresholds | 0.4352 |
 | Macro F1 at validation-selected thresholds | 0.2613 |
+
+### AUROC by finding
+
+![ThoraxLens held-out test AUROC values by finding](assets/test-auroc-chart.svg)
 
 ### Per-finding ranking metrics
 
@@ -135,9 +202,9 @@ Evaluation used **25,596 held-out test images**. AUROC and average precision mea
 | Pneumonia | 555 | 0.6670 | 0.0385 |
 | Pneumothorax | 2,665 | 0.8016 | 0.2938 |
 
-### Validation-selected thresholds
+## Threshold calibration
 
-Each label threshold was selected by maximizing F1 on the validation partition, then kept fixed for held-out test evaluation. The test set was **not** used to choose these thresholds. These values are experimental operating points, not medical cutoffs.
+Thresholds for each label were chosen by maximizing F1 on the **validation split**, then kept fixed for held-out test evaluation. The test set was not used to choose thresholds. These are experiment-specific operating points, not medical cutoffs.
 
 | Finding | Validation threshold | Test precision | Test recall | Test F1 |
 |---|---:|---:|---:|---:|
@@ -156,52 +223,59 @@ Each label threshold was selected by maximizing F1 on the validation partition, 
 | Pneumonia | 0.8209 | 0.0441 | 0.2414 | 0.0746 |
 | Pneumothorax | 0.8554 | 0.3042 | 0.4533 | 0.3641 |
 
-Detailed artifacts live in `reports/`, including corrected per-finding test metrics, thresholded test metrics, training history, and validation threshold JSON/CSV files.
+Detailed experiment outputs are intended to live in <code>reports/</code>, including corrected per-finding test metrics, thresholded test metrics, training history, and validation threshold JSON/CSV files.
 
-## Dashboard and saliency visualization
+## Dashboard and explainability
 
-The Streamlit dashboard supports X-ray upload, the 14 model scores, comparisons against validation-derived thresholds, and a saliency heatmap for exploratory model inspection.
+The dashboard supports X-ray image upload, per-finding model scores, comparisons against validation-derived thresholds, and a saliency heatmap for exploratory model inspection.
 
-Run from the repository root, once a compatible local checkpoint and its matching threshold JSON are available:
+![Conceptual explanation of image scoring and saliency inspection](assets/interpretability-workflow.svg)
 
-```powershell
-python -m streamlit run app.py
-```
+> **About this figure:** this is a conceptual illustration of the workflow. Its example scores and heatmap are not a real ThoraxLens prediction or a clinical localization result. Actual predictions can disagree with report-derived labels.
 
-Then open [http://localhost:8501](http://localhost:8501) in a browser and upload a PNG/JPG chest X-ray.
+### Run the dashboard
 
-The displayed scores are raw model outputs, **not calibrated probabilities**. A threshold flag is not a diagnosis. A saliency map does not prove that the model has found a clinically valid feature or correctly localized a finding. Individual predictions can disagree with the report-derived NIH labels.
+From the project root, after installing dependencies and supplying a compatible checkpoint plus its matching threshold JSON:
 
-## Environment and setup
+<pre><code>python -m streamlit run app.py</code></pre>
 
-The project uses Python 3.11, PyTorch/Torchvision, pandas, NumPy, scikit-learn, Pillow, Matplotlib, and Streamlit.
+Then open [http://localhost:8501](http://localhost:8501) in your browser.
 
-```powershell
-py -3.11 -m venv .venv
+The displayed scores are raw model outputs and should not automatically be interpreted as calibrated probabilities. A threshold flag is not a diagnosis. A saliency map does not prove that the model found a clinically valid feature or correctly localized a finding.
+
+## Installation and environment
+
+The documented experiments used Python 3.11, PyTorch/Torchvision, pandas, NumPy, scikit-learn, Pillow, Matplotlib, and Streamlit.
+
+<pre><code>py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
+python -m pip install -r requirements.txt</code></pre>
 
-For CUDA, install a CUDA-enabled PyTorch/Torchvision build compatible with your machine using the [official PyTorch installation selector](https://pytorch.org/get-started/locally/).
+For GPU acceleration, install a CUDA-enabled PyTorch/Torchvision build compatible with your setup using the [official PyTorch installation selector](https://pytorch.org/get-started/locally/).
 
-## Repository structure
+## Repository map
 
-```text
-ThoraxLens/
+<pre><code>ThoraxLens/
 ├── app.py
 ├── audit_splits.py
 ├── validate_dataset.py
 ├── requirements.txt
+├── assets/
+│   ├── hero-banner.svg
+│   ├── project-pipeline.svg
+│   ├── data-split.svg
+│   ├── test-auroc-chart.svg
+│   └── interpretability-workflow.svg
 ├── data/
 │   └── DATASET_DOWNLOAD.md
-├── models/                         # trained checkpoints are not committed
-├── reports/
-│   ├── patient_disjoint_test_metrics_fixed.csv
-│   ├── patient_disjoint_test_threshold_metrics.csv
-│   ├── training_history.csv
-│   ├── validation_thresholds.json
-│   └── validation_threshold_metrics.csv
+├── docs/
+│   ├── ARCHITECTURE.md
+│   └── EVALUATION_PROTOCOL.md
+├── MODEL_CARD.md
+├── CITATION.cff
+├── models/                         # local checkpoints are not committed
+├── reports/                        # experiment CSV/JSON outputs
 ├── src/
 │   ├── data.py
 │   ├── labels.py
@@ -211,22 +285,24 @@ ThoraxLens/
 │   ├── evaluate_thresholds.py
 │   ├── calibrate_thresholds.py
 │   └── inference.py
-└── tests/
-```
+└── tests/</code></pre>
 
-## Limitations and responsible use
+The source and report folders are intended to be added from the actual <code>chest_xray_project_v3</code> working tree. The published README and diagrams document that project, but a complete code upload is a separate step.
+
+## Limitations
 
 - NIH ChestX-ray labels are report-derived and can be noisy or incomplete.
 - Class prevalence is highly imbalanced; average precision varies substantially by finding.
-- The model has only been evaluated in this project setup and has not undergone external clinical validation.
-- Saliency visualization is exploratory and should not be interpreted as a verified lesion localization.
-- The model is **not for diagnosis, triage, treatment, or other clinical decisions**.
+- The model has not undergone external clinical validation.
+- Saliency maps are exploratory visualizations, not verified lesion localization or causal explanations.
+- This model is **not for diagnosis, triage, treatment, or other clinical decisions**.
 - The reported two-epoch fine-tuning run is a research baseline, not evidence of clinical readiness.
 
-## Reference
+## Acknowledgements and references
 
-- Laurent Veyssier, [Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning). This project is inspired by the repository's task framing and explanatory material, but it uses a separate PyTorch implementation and its own evaluation results.
-- NIH Clinical Center, [Chest X-ray dataset portal](https://nihcc.app.box.com/v/Chestxray-NIHCC).
+- **Reference project:** Laurent Veyssier, [Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning). The linked architecture diagrams and dense-connection animation are hosted by that original repository and are used here as explicitly attributed reference illustrations; they are not ThoraxLens outputs.
+- **Dataset:** NIH Clinical Center, [Chest X-ray dataset portal](https://nihcc.app.box.com/v/Chestxray-NIHCC).
+- **Architecture paper:** Huang et al., [Densely Connected Convolutional Networks](https://arxiv.org/abs/1608.06993).
 
 ---
 
