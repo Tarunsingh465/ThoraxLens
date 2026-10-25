@@ -110,20 +110,17 @@ The Streamlit dashboard was launched locally and successfully:
 
 An example image labelled `No Finding` received some high scores in the demo. That disagreement should be recorded as a potential false-positive/error-analysis case, not interpreted as a clinical finding. NIH report-mined labels can be imperfect, and a single image does not establish overall model quality.
 
-## 7. Existing report artifacts
+## 7. Tracked experiment artifacts
 
-The following files were present in the project's `reports` directory:
+The following experiment artifacts are tracked in `reports/`:
 
-- `patient_disjoint_test_metrics.csv`
-- `patient_disjoint_test_metrics.csv`
-- `patient_disjoint_test_threshold_metrics.csv`
-- `training_history.csv`
-- `validation_per_label_epoch_1.csv`
-- `validation_per_label_epoch_2.csv`
-- `validation_thresholds.json`
-- `validation_threshold_metrics.csv`
+- `patient_disjoint_test_metrics_fixed.csv` — corrected per-finding AUROC and average precision.
+- `patient_disjoint_test_threshold_metrics.csv` — held-out test precision, recall, and F1 at validation-selected thresholds.
+- `training_history.csv` — per-epoch train/validation history.
+- `validation_per_label_epoch_1.csv` and `validation_per_label_epoch_2.csv` — per-label validation diagnostics for each epoch.
+- `validation_thresholds.json` and `validation_threshold_metrics.csv` — thresholds selected on validation data and their validation metrics.
 
-Use `patient_disjoint_test_threshold_metrics.csv` for the threshold-specific test precision/recall/F1 report and `patient_disjoint_test_metrics.csv` for the corrected per-finding ranking metrics.
+Trained model checkpoints are intentionally excluded from the public repository. To run the dashboard, place a compatible checkpoint locally and point the app to it according to the app's checkpoint setting.
 
 ## 8. Limitations and next improvements
 
@@ -135,10 +132,12 @@ Use `patient_disjoint_test_threshold_metrics.csv` for the threshold-specific tes
 6. Before further performance claims, preserve the held-out test set, report confidence intervals (e.g., bootstrap by patient), inspect calibration, consider threshold selection for the intended operating point, and review false-positive/false-negative examples.
 7. This PyTorch implementation is inspired by the reference repository but is not an exact reproduction of its original notebook, preprocessing, or pretrained weights.
 
-## 9. Reproducible paths in the local project
+## 9. Reproducible repository paths
 
-Dataset: `D:\chest_xray_project\Datasets`  
-Project: `D:\chest_xray_project_v3`  
-Final corrected checkpoint: `models\densenet121_xray_label_fixed_best.pth`  
-Validation thresholds: `reports\validation_thresholds.json`  
-Thresholded test metrics: `reports\patient_disjoint_test_threshold_metrics.csv`
+- Dataset instructions: `data/DATASET_DOWNLOAD.md`
+- Local dataset directory: `data/nih/` (ignored by Git)
+- Validation thresholds: `reports/validation_thresholds.json`
+- Thresholded test metrics: `reports/patient_disjoint_test_threshold_metrics.csv`
+- Corrected ranking metrics: `reports/patient_disjoint_test_metrics_fixed.csv`
+- Checkpoints: keep compatible local weights in `models/`; model files are not committed.
+
