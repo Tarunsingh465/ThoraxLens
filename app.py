@@ -24,7 +24,7 @@ st.markdown(
 )
 
 checkpoint = st.text_input(
-    "Checkpoint path", "models/densenet121_xray_label_fixed_best.pth"
+    "Checkpoint path", "D:\chest_xray_project_v3\models\densenet121_xray_label_fixed_best.pth"
 )
 image_size = st.selectbox("Model input size", [224, 256, 320], index=0)
 threshold_path = Path("reports/validation_thresholds.json")
