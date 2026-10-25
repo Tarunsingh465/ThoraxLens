@@ -36,11 +36,11 @@
 
 ## Project overview
 
-ThoraxLens predicts scores for **14 findings** from a frontal chest X-ray. This is a **multi-label classification** task: more than one finding can receive a score for the same image.
+ThoraxLens is an AI-powered chest X-ray analysis research project that predicts scores for **14 thoracic findings** from a frontal chest X-ray. It uses a **multi-label classification** approach, allowing multiple findings to receive scores for the same image.
 
-The project is inspired by [Laurent Veyssier's Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning repository](https://github.com/LaurentVeyssier/Chest-X-Ray-Medical-Diagnosis-with-Deep-Learning), which explains DenseNet-121, class-imbalance handling, ROC/AUC evaluation, and Grad-CAM. ThoraxLens is a separate PyTorch implementation with patient-split auditing, saved per-label evaluation reports, validation-derived decision thresholds, and a Streamlit research dashboard.
+Built with PyTorch and DenseNet-121, ThoraxLens combines image preprocessing, patient-split auditing, class-imbalance handling, and systematic model evaluation. The project includes AUROC and Average Precision metrics, validation-derived per-label decision thresholds, saved evaluation reports, and a Streamlit dashboard for interactive image analysis and saliency-based visualization.
 
-**This is not an exact reproduction** of the upstream TensorFlow/Keras notebook, training protocol, or its bundled model weights. Results below are from the ThoraxLens experiments described in this project.
+ThoraxLens emphasizes reproducibility, evaluation integrity, and transparent reporting through structured experiment logs, per-label performance metrics, and dataset split audits. It is designed as an independent research implementation for exploring deep learning and explainability in medical imaging.
 
 ## Highlights
 
