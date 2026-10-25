@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.streamlit/
+data/nih/
+models/*.pth
+*.py[cod]
+models/*.pt
+models/*.ckpt
+Datasets/
+data/raw/
+data/processed/
+*.tar.gz

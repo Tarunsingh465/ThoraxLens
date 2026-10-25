@@ -1,0 +1,40 @@
+{
+  "description": "Per-label score thresholds selected by maximizing F1 on this project's patient-level validation split. Research-only; not clinical decision thresholds.",
+  "checkpoint": ".\\models\\densenet121_xray_label_fixed_best.pth",
+  "validation_images": 13501,
+  "validation_fraction": 0.15,
+  "seed": 42,
+  "method": "per-label maximum F1 on validation precision-recall curve",
+  "labels": [
+    "Atelectasis",
+    "Cardiomegaly",
+    "Consolidation",
+    "Edema",
+    "Effusion",
+    "Emphysema",
+    "Fibrosis",
+    "Hernia",
+    "Infiltration",
+    "Mass",
+    "Nodule",
+    "Pleural Thickening",
+    "Pneumonia",
+    "Pneumothorax"
+  ],
+  "thresholds": {
+    "Atelectasis": 0.6840530037879944,
+    "Cardiomegaly": 0.9331876635551453,
+    "Consolidation": 0.7916600704193115,
+    "Edema": 0.8822250962257385,
+    "Effusion": 0.7764534950256348,
+    "Emphysema": 0.8836382031440735,
+    "Fibrosis": 0.7341195344924927,
+    "Hernia": 0.9171544313430786,
+    "Infiltration": 0.5332151651382446,
+    "Mass": 0.9217811226844788,
+    "Nodule": 0.8401278853416443,
+    "Pleural Thickening": 0.7414869070053101,
+    "Pneumonia": 0.820900559425354,
+    "Pneumothorax": 0.8553685545921326
+  }
+}
