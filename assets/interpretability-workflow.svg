@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="480" viewBox="0 0 1280 480" role="img" aria-labelledby="title desc">
+<title id="title">ThoraxLens explainability flow</title><desc id="desc">Conceptual illustration showing an X-ray image passing through a classifier to scores and a saliency overlay for exploratory model inspection. It is not an actual prediction.</desc>
+<defs><radialGradient id="lung" cx=".5" cy=".42" r=".75"><stop offset="0" stop-color="#d9e7ed"/><stop offset="1" stop-color="#6c8593"/></radialGradient><radialGradient id="heat"><stop offset="0" stop-color="#ffea78" stop-opacity=".95"/><stop offset=".45" stop-color="#ff6b4a" stop-opacity=".72"/><stop offset="1" stop-color="#d63fa9" stop-opacity="0"/></radialGradient></defs>
+<rect width="1280" height="480" rx="22" fill="#f9fbfd" stroke="#d7e3ed" stroke-width="2"/>
+<text x="55" y="59" font-family="Segoe UI,Arial,sans-serif" font-size="31" font-weight="700" fill="#102f48">Model inspection: scores + saliency visualization</text>
+<text x="55" y="94" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#617a8f">Conceptual illustration of dashboard flow — not an actual patient prediction or clinically validated localization.</text>
+<g transform="translate(72 130)">
+ <rect width="270" height="278" rx="17" fill="#172b3a" stroke="#91a6b5" stroke-width="2"/>
+ <rect x="18" y="18" width="234" height="242" rx="11" fill="url(#lung)"/>
+ <path d="M135 39V213M122 55C101 47 65 63 56 112C48 156 69 206 105 221C125 228 130 194 130 148ZM148 55C169 47 205 63 214 112C222 156 201 206 165 221C145 228 140 194 140 148Z" fill="#1b3341" opacity=".9" stroke="#f0f5f7" stroke-width="3"/>
+ <path d="M135 41V221M135 77L96 103M135 77L174 103M96 103L79 147M174 103L191 147" fill="none" stroke="#c4d7e1" stroke-width="3" opacity=".7"/>
+ <text x="135" y="302" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#12354d">Input X-ray</text>
+</g>
+<path d="M366 270H438L427 259M438 270L427 281" stroke="#7b91a5" stroke-width="4" fill="none" stroke-linecap="round"/>
+<g transform="translate(458 170)">
+ <rect width="220" height="190" rx="20" fill="#e7edff" stroke="#bac7f6" stroke-width="2"/>
+ <g fill="#546bd0"><circle cx="56" cy="58" r="10"/><circle cx="110" cy="42" r="10"/><circle cx="164" cy="58" r="10"/><circle cx="56" cy="103" r="10"/><circle cx="110" cy="88" r="10"/><circle cx="164" cy="103" r="10"/><circle cx="56" cy="148" r="10"/><circle cx="110" cy="134" r="10"/><circle cx="164" cy="148" r="10"/></g>
+ <g stroke="#7084df" stroke-width="2" opacity=".75"><path d="M56 58L110 42L164 58M56 58L110 88L164 58M56 103L110 88L164 103M56 103L110 134L164 103M56 148L110 134L164 148M56 58L56 103L56 148M110 42L110 88L110 134M164 58L164 103L164 148"/></g>
+ <text x="110" y="225" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#263f9d">DenseNet-121</text>
+</g>
+<path d="M696 270H768L757 259M768 270L757 281" stroke="#7b91a5" stroke-width="4" fill="none" stroke-linecap="round"/>
+<g transform="translate(790 147)">
+ <rect width="190" height="245" rx="17" fill="#e3f7f3" stroke="#9bded4" stroke-width="2"/>
+ <text x="95" y="34" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#126f68">Finding scores</text>
+ <g font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#3b626d"><text x="17" y="65">Effusion</text><text x="171" y="65" text-anchor="end">score</text></g>
+ <rect x="17" y="74" width="156" height="10" rx="5" fill="#c3e5df"/><rect x="17" y="74" width="117" height="10" rx="5" fill="#1c9d91"/>
+ <g font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#3b626d"><text x="17" y="111">Cardiomegaly</text></g>
+ <rect x="17" y="120" width="156" height="10" rx="5" fill="#c3e5df"/><rect x="17" y="120" width="97" height="10" rx="5" fill="#1c9d91"/>
+ <g font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#3b626d"><text x="17" y="157">Pneumothorax</text></g>
+ <rect x="17" y="166" width="156" height="10" rx="5" fill="#c3e5df"/><rect x="17" y="166" width="70" height="10" rx="5" fill="#1c9d91"/>
+ <text x="95" y="211" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#4b7780">Illustrative scores only</text>
+</g>
+<path d="M998 270H1034L1023 259M1034 270L1023 281" stroke="#7b91a5" stroke-width="4" fill="none" stroke-linecap="round"/>
+<g transform="translate(1052 130)">
+ <rect width="162" height="278" rx="17" fill="#172b3a" stroke="#91a6b5" stroke-width="2"/>
+ <rect x="12" y="18" width="138" height="242" rx="10" fill="url(#lung)"/>
+ <path d="M81 39V213M72 55C52 49 30 71 30 118C30 158 46 202 65 214C76 220 78 190 78 148ZM90 55C110 49 132 71 132 118C132 158 116 202 97 214C86 220 84 190 84 148Z" fill="#203744" opacity=".9" stroke="#f0f5f7" stroke-width="2"/>
+ <ellipse cx="55" cy="136" rx="45" ry="56" fill="url(#heat)"/><ellipse cx="99" cy="107" rx="42" ry="52" fill="url(#heat)" opacity=".75"/>
+ <text x="81" y="302" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#12354d">Saliency map</text>
+</g>
+</svg>
